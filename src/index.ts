@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.raw({ type: 'multipart/form-data' }));
 
 app.use('/', routes);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 initializeDb()
 	.then(() => {
