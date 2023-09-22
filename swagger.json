@@ -2,11 +2,7 @@
 	"swagger": "2.0",
 	"info": {
 		"version": "1.0.0",
-		"title": "DeloreanZeta API",
-		"license": {
-			"name": "MIT",
-			"url": "https://opensource.org/licenses/MIT"
-		}
+		"title": "DeloreanZeta API"
 	},
 	"host": "localhost:3000",
 	"basePath": "/",
@@ -30,6 +26,27 @@
 						"schema": {
 							"$ref": "#/definitions/User"
 						}
+					},
+					"400": {
+							"description": "Bad request"
+					},
+					"500": {
+						"description": "Internal server error"
+					}
+				}
+			},
+			"post":{
+				"tags": ["Users"],
+				"summary": "Add user in system",
+				"responses": {
+					"201": {
+						"description": "User created"
+					},
+					"400": {
+							"description": "Bad request"
+					},
+					"409": {
+						"description": "Username already exist"
 					}
 				}
 			}
@@ -37,37 +54,39 @@
 	},
 	"definitions": {
 		"User": {
-			"required": ["name", "_id", "companies"],
+			"required": ["email", "password", "name", "lastname", "role"],
 			"properties": {
-				"_id": {
-					"type": "integer",
+				"id": {
+					"type": "number",
+					"uniqueItems":true
+				},
+				"email": {
+					"type": "string",
 					"uniqueItems": true
 				},
-				"isPublic": {
-					"type": "boolean"
+				"password": {
+					"type": "string"
 				},
 				"name": {
 					"type": "string"
+				},				
+				"lastname": {
+					"type": "string"
 				},
-				"books": {
-					"type": "array",
-					"items": {
-						"type": "object",
-						"properties": {
-							"name": {
-								"type": "string"
-							},
-							"amount": {
-								"type": "number"
-							}
-						}
-					}
+				"telephone": {
+					"type": "string"
 				},
-				"companies": {
-					"type": "array",
-					"items": {
-						"type": "string"
-					}
+				"role": {
+					"type": "string"
+				},
+				"resetToken": {
+					"type": "string"
+				},
+				"createdAt": {
+					"type": "string"
+				},
+				"updateAt": {
+					"type": "string"
 				}
 			}
 		}

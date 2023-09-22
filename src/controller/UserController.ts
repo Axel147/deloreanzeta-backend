@@ -8,7 +8,7 @@ export class UserController {
 	static getAll = async (req: Request, res: Response) => {
 		try {
 			const users = await userRepository.findAll();
-			return  res.send(users);
+			return  res.status(StatusCodes.OK).send(users);
 		} catch (e) {
             // check if is a typeorm error and thor error 500
             if (e.name === 'QueryFailedError') {
@@ -22,7 +22,7 @@ export class UserController {
 		const { email } = req.params;
 		try {
 			const user = await userRepository.findByEmail(email);
-			return res.send(user);
+			return res.status(StatusCodes.OK).send(user);
 		} catch (e) {
             // check if is a typeorm error and thor error 500
             if (e.name === 'QueryFailedError') {
@@ -52,7 +52,6 @@ export class UserController {
 		if (errors.length > 0) {
 			return res.status(StatusCodes.BAD_REQUEST).json(errors);
 		}
-
 		try {
 			user.hashPassword();
 			await userRepository.createUser(user);
@@ -76,20 +75,16 @@ export class UserController {
 		} catch (e) {
 			// check if is a typeorm error and thor error 500
 			if (e.name === 'QueryFailedError') {
-				return res
-					.status(StatusCodes.INTERNAL_SERVER_ERROR)
-					.json({ message: 'Internal server error' });
+				return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Internal server error' });
 			}
 			return res.status(StatusCodes.BAD_REQUEST).json({ message: 'User not found' });
 		}
-
         return res.status(StatusCodes.CREATED).json({ message: 'User updated' });
 	};
 
 	static deleteUser = async (req: Request, res: Response) => {
 		const { id } = req.params;
         const idInt = parseInt(id as string);
-
 		try {
 			const user = await userRepository.findById(idInt);
             userRepository.deleteUser(user);
@@ -100,8 +95,7 @@ export class UserController {
             }
 			return res.status(StatusCodes.BAD_REQUEST).json({ message: 'User not found' });
 		}
-
-		return res.status(StatusCodes.CREATED).json({ message: 'User deleted' });
+		return res.status(StatusCodes.OK).json({ message: 'User deleted' });
 	};
 
 	static changeRole = async (req: Request, res: Response) => {
@@ -123,7 +117,7 @@ export class UserController {
             return res.status(StatusCodes.BAD_REQUEST).json({ message: 'User not found' });
 		}
 
-		return res.status(StatusCodes.CREATED).json({ message: 'Role update' });
+		return res.status(StatusCodes.OK).json({ message: 'Role update' });
 	};
 }
 
