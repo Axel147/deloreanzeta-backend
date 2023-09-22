@@ -5,7 +5,10 @@ import { User } from '../entity/User';
 const UserRepository = conn.getRepository(User).extend({
 	// custom methods
 	async findByEmail(email: string): Promise<User> {
-		return await this.findOneBy({ email });
+		const user = await this.createQueryBuilder('user')
+			.where('user.email = :email', { email })
+			.getOneOrFail();
+			return user;
 	},
 	async findById(id: number): Promise<User> {
 		return await this.findOneBy(id);

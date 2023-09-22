@@ -18,9 +18,8 @@ export class UserController {
 		}
 	};
 
-	static getById = async (req: Request, res: Response) => {
+	static getByEmail = async (req: Request, res: Response) => {
 		const { email } = req.params;
-
 		try {
 			const user = await userRepository.findByEmail(email);
 			return res.send(user);

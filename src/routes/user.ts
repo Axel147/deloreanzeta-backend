@@ -8,7 +8,7 @@ const router = Router();
 
 router.get("/", [/*checkJwt/*, checkRole(['admin'])*/], UserController.getAll);
 
-router.get("/:id", [/*checkJwt, checkRole(['admin'])*/], UserController.getById);
+router.get("/:email", [/*checkJwt, checkRole(['admin'])*/], UserController.getByEmail);
 
 router.post("/", validateRegister, UserController.newUser);
 
