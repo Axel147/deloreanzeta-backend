@@ -3,6 +3,7 @@ import { Image } from '../entity/Image';
 import { Product } from '../entity/Product';
 import CategoryRepository from '../repositories/CategoryRepository';
 import ProductRepository from '../repositories/ProductRepository';
+import { StatusCodes } from 'http-status-codes';
 //import 
 
 export class ProductController {
@@ -18,12 +19,12 @@ export class ProductController {
 				pageInt,
 				limitInt
 			);
-			return res.send(products);
+			return res.status(StatusCodes.OK).send(products);
 		} catch (error) {
 			if (error.name === 'QueryFailedError') {
-				return res.status(500).send({ message: 'Internal server error' });
+				return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({ message: 'Internal server error' });
 			} else {
-				return res.status(400).send({ message: 'Bad request' });
+				return res.status(StatusCodes.BAD_REQUEST).send({ message: 'Bad request' });
 			}
 		}
 	};
@@ -33,9 +34,12 @@ export class ProductController {
 
 		try {
 			const product = await productRepository.findById(parseInt(req.params.id))//.query('SELECT * FROM product WHERE id = ?',[req.params.id]); 
-			return res.send(product);
+			return res.status(StatusCodes.OK).send(product);
 		} catch (e) {
-			return res.status(400).json({ message: 'Not result' });
+			if (e.name === 'QueryFailedError') {
+                return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Internal server error' });
+            }
+			return res.status(StatusCodes.BAD_REQUEST).json({ message: 'Not result' });
 		}
 	};
 
@@ -60,12 +64,12 @@ export class ProductController {
 
 				await productRepository.save(product);
 			} else {
-				return res.status(404).json({ message: 'The category does not exist' });
+				return res.status(StatusCodes.NOT_FOUND).json({ message: 'The category does not exist' });
 			}
 		} catch (error) {
-			return res.status(409).json(error);
+			return res.status(StatusCodes.CONFLICT).json(error);
 		}
-		return res.send('Product created');
+		return res.status(StatusCodes.ACCEPTED).send('Product created');
 	};
 
 	static getProductCategory = async (req: Request, res: Response) => {
@@ -73,9 +77,9 @@ export class ProductController {
 
 		try {
 			const product = await productRepository.findById(parseInt(req.params.id))//.query('SELECT * FROM product WHERE id = ?',[req.params.id]); 
-			return res.send(product);
+			return res.status(StatusCodes.OK).send(product);
 		} catch (e) {
-			return res.status(400).json({ message: 'Not result' });
+			return res.status(StatusCodes.BAD_REQUEST).json({ message: 'Not result' });
 		}
 	};
 
