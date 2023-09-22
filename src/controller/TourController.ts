@@ -10,22 +10,26 @@ export class TourController {
 	static getAll = async (req: Request, res: Response) => {
 		try {
 			const tours = await tourRepository.findAll();
-			return res.send(tours);
+			return res.status(StatusCodes.OK).send(tours);
 		} catch (e) {
-			return res
-				.status(StatusCodes.INTERNAL_SERVER_ERROR)
-				.json({ message: 'Somenthing goes wrong' });
+			if(e.name === 'QueryFailedError') {
+				return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Internal server error' });
+			}
+			return res.status(StatusCodes.BAD_REQUEST).json({ message: 'Not results' });
 		}
 	};
 
 	static getById = async (req: Request, res: Response) => {
+		const { id } = req.params;
+		const idInt = parseInt(id as string);
 		try {
-			const { id } = req.params;
-			const idInt = parseInt(id as string);
 			const tour = await tourRepository.findById(idInt);
-			return res.send(tour);
+			return res.status(StatusCodes.OK).send(tour);
 		} catch (e) {
-			return res.status(StatusCodes.NOT_FOUND).json({ message: 'Not result' });
+			if (e.name === 'QueryFailedError') {
+                return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Internal server error' });
+			}
+			return res.status(StatusCodes.BAD_REQUEST).json({ message: 'Not result' });
 		}
 	};
 
@@ -48,11 +52,10 @@ export class TourController {
 		const validationOpt = {
 			validationError: { target: false, value: false },
 		};
-		const e = await validate(tour, validationOpt);
-		if (e.length > 0) {
-			return res.status(StatusCodes.BAD_REQUEST).json(e);
+		const errors = await validate(tour, validationOpt);
+		if (errors.length > 0) {
+			return res.status(StatusCodes.BAD_REQUEST).json(errors);
 		}
-
 		try {
 			await tourRepository.save(tour);
 			return res.status(StatusCodes.CREATED).send('Tour created');
@@ -75,48 +78,34 @@ export class TourController {
 			const validationOpt = {
 				validationError: { target: false, value: false },
 			};
-			const e = await validate(tour, validationOpt);
-			if (e.length > 0) {
-				return res.status(StatusCodes.BAD_REQUEST).json(e);
+			const errors = await validate(tour, validationOpt);
+			if (errors.length > 0) {
+				return res.status(StatusCodes.BAD_REQUEST).json(errors);
 			}
 			await tourRepository.save(tour);
-
-			return res
-				.status(StatusCodes.CREATED)
-				.json({ message: 'Tour updated' });
-		} catch (e) {
-			if (e.name === 'QueryFailedError') {
-				return res
-					.status(StatusCodes.INTERNAL_SERVER_ERROR)
-					.json({ message: 'Something goes wrong' });
+			return res.status(StatusCodes.CREATED).json({ message: 'Tour updated' });
+		
+		} catch (errors) {
+			if (errors.name === 'QueryFailedError') {
+				return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Something goes wrong' });
 			}
-			return res
-				.status(StatusCodes.NOT_FOUND)
-				.json({ message: 'Tour not found' });
+			return res.status(StatusCodes.BAD_REQUEST).json({ message: 'Tour not found' });
 		}
 	};
 
 	static deleteTour = async (req: Request, res: Response) => {
 		const { id } = req.params;
 		const idInt = parseInt(id as string);
-
 		try {
 			await tourRepository.findById(idInt);
 		} catch (e) {
-			return res
-				.status(StatusCodes.NOT_FOUND)
-				.json({ message: 'Tour not found' });
+			return res.status(StatusCodes.NOT_FOUND).json({ message: 'Tour not found' });
 		}
-
 		try {
 			tourRepository.delete(id);
-			return res
-				.status(StatusCodes.CREATED)
-				.json({ message: 'Tour deleted' });
+			return res.status(StatusCodes.CREATED).json({ message: 'Tour deleted' });
 		} catch (error) {
-			return res
-				.status(StatusCodes.INTERNAL_SERVER_ERROR)
-				.json({ message: 'Something goes wrong' });
+			return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Something goes wrong' });
 		}
 	};
 }

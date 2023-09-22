@@ -5,6 +5,7 @@ import userRepository from '../repositories/UserRepository';
 import { StatusCodes } from 'http-status-codes';
 
 export class UserController {
+
 	static getAll = async (req: Request, res: Response) => {
 		try {
 			const users = await userRepository.findAll();
@@ -55,10 +56,10 @@ export class UserController {
 		try {
 			user.hashPassword();
 			await userRepository.createUser(user);
+			return res.status(StatusCodes.CREATED).send('Tour created');
 		} catch (e) {
 			return res.status(StatusCodes.CONFLICT).json({ message: 'Username already exist' });
 		}
-		return res.status(StatusCodes.CREATED).json({ message: 'User created' });
 	};
 
 	static editUser = async (req: Request, res: Response) => {
@@ -72,6 +73,7 @@ export class UserController {
 			user.lastname = lastname;
 			user.telephone = telephone;
 			userRepository.updateUser(user);
+			return res.status(StatusCodes.CREATED).json({ message: 'User updated' });
 		} catch (e) {
 			// check if is a typeorm error and thor error 500
 			if (e.name === 'QueryFailedError') {
@@ -79,7 +81,6 @@ export class UserController {
 			}
 			return res.status(StatusCodes.BAD_REQUEST).json({ message: 'User not found' });
 		}
-        return res.status(StatusCodes.CREATED).json({ message: 'User updated' });
 	};
 
 	static deleteUser = async (req: Request, res: Response) => {
