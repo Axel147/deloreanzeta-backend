@@ -3,14 +3,18 @@ import newRepository from '../repositories/NewRepository';
 import { StatusCodes } from 'http-status-codes';
 import { New } from '../entity/New';
 import moment = require('moment');
+import { validate } from 'class-validator';
 
 export class NewController {
 	static getAll = async (req: Request, res: Response) => {
 		try{
 			const news = await newRepository.findAll();
-			return res.send(news);
+			return res.status(StatusCodes.OK).send(news);
 		}catch(error){
-			return res.status(409).json(error);
+			if (error.name === 'QueryFailedError') {
+                return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Internal server error' });
+            }
+			return res.status(StatusCodes.BAD_REQUEST).json(error);
 		}
 	};
 
@@ -19,9 +23,12 @@ export class NewController {
 		const idInt = parseInt(id as string);
 		try{
 			const neww = await newRepository.findById(idInt);
-			return res.send(neww);
+			return res.status(StatusCodes.OK).send(neww);
 		}catch(error){
-			return res.status(409).json(error);
+			if (error.name === 'QueryFailedError') {
+                return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Internal server error' });
+            }
+			return res.status(StatusCodes.BAD_REQUEST).json(error);
 		}
 	};
 
@@ -36,11 +43,18 @@ export class NewController {
         const date = moment().format('YYYY-MM-DDTHH:mm:ss.SSSZ');
         neww.date = date.substring(0, 19).concat('.000-00:00');
 
+		const validationOpt = {
+			validationError: { target: false, value: false },
+		};
+		const errors = await validate(neww, validationOpt);
+		if (errors.length > 0) {
+			return res.status(StatusCodes.BAD_REQUEST).json(errors);
+		}
 		try {
 			await newRepository.save(neww);
 			return res.status(StatusCodes.CREATED).send('News created');
 		} catch (error) {
-			return res.status(400).json({ message: 'Not result' });
+			return res.status(StatusCodes.CONFLICT).json(error);
 		}
 	};
 
@@ -58,14 +72,16 @@ export class NewController {
 			const date = moment().format('YYYY-MM-DDTHH:mm:ss.SSSZ');
 	        neww.date = date.substring(0, 19).concat('.000-00:00');
 		} catch(error){
-			return res.status(409).json(error);
+			if (error.name === 'QueryFailedError') {
+				return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Internal server error' });
+			}
+			return res.status(StatusCodes.BAD_REQUEST).json(error);
 		}
 		try {
 			await newRepository.updateNew(neww);
-			return res.send(neww);
-			//return res.status(StatusCodes.OK).json({ message: 'OK', neww });
-		} catch (e) {
-			return res.status(400).json({ message: 'Not result' });
+			return res.status(StatusCodes.OK).send(neww);
+		} catch (error) {
+			return res.status(StatusCodes.BAD_REQUEST).json(error);
 		}
 	};
 
@@ -76,13 +92,16 @@ export class NewController {
 		try{
 			neww = await newRepository.findById(idInt);
 		}catch(error){
-			return res.status(409).json(error);
+			if (error.name === 'QueryFailedError') {
+                return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Internal server error' });
+            }
+			return res.status(StatusCodes.BAD_REQUEST).json(error);
 		}
 		try{
 			await newRepository.deleteNew(neww);
-			return res.status(StatusCodes.OK).json({ message: 'OK' });
+			return res.status(StatusCodes.OK).json({ message: 'New deleted' });
 		}catch(error){
-			return res.status(409).json(error);
+			return res.status(StatusCodes.BAD_REQUEST).json(error);
 		}
 	};
 }

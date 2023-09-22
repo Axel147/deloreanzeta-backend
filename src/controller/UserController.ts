@@ -10,12 +10,12 @@ export class UserController {
 		try {
 			const users = await userRepository.findAll();
 			return  res.status(StatusCodes.OK).send(users);
-		} catch (e) {
+		} catch (error) {
             // check if is a typeorm error and thor error 500
-            if (e.name === 'QueryFailedError') {
+            if (error.name === 'QueryFailedError') {
                 return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Internal server error' });
             }
-			return res.status(StatusCodes.BAD_REQUEST).json({ message: 'Not results' });
+			return res.status(StatusCodes.BAD_REQUEST).json(error);
 		}
 	};
 
@@ -24,12 +24,12 @@ export class UserController {
 		try {
 			const user = await userRepository.findByEmail(email);
 			return res.status(StatusCodes.OK).send(user);
-		} catch (e) {
+		} catch (error) {
             // check if is a typeorm error and thor error 500
-            if (e.name === 'QueryFailedError') {
+            if (error.name === 'QueryFailedError') {
                 return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Internal server error' });
             }
-			return res.status(StatusCodes.BAD_REQUEST).json({ message: 'Not result' });
+			return res.status(StatusCodes.BAD_REQUEST).json(error);
 		}
 	};
 
@@ -57,8 +57,8 @@ export class UserController {
 			user.hashPassword();
 			await userRepository.createUser(user);
 			return res.status(StatusCodes.CREATED).send('Tour created');
-		} catch (e) {
-			return res.status(StatusCodes.CONFLICT).json({ message: 'Username already exist' });
+		} catch (error) {
+			return res.status(StatusCodes.CONFLICT).json(error);
 		}
 	};
 
@@ -74,12 +74,12 @@ export class UserController {
 			user.telephone = telephone;
 			userRepository.updateUser(user);
 			return res.status(StatusCodes.CREATED).json({ message: 'User updated' });
-		} catch (e) {
+		} catch (error) {
 			// check if is a typeorm error and thor error 500
-			if (e.name === 'QueryFailedError') {
+			if (error.name === 'QueryFailedError') {
 				return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Internal server error' });
 			}
-			return res.status(StatusCodes.BAD_REQUEST).json({ message: 'User not found' });
+			return res.status(StatusCodes.BAD_REQUEST).json(error);
 		}
 	};
 
@@ -89,9 +89,9 @@ export class UserController {
 		try {
 			const user = await userRepository.findById(idInt);
             userRepository.deleteUser(user);
-		} catch (e) {
+		} catch (error) {
             // check if is a typeorm error and thor error 500
-            if (e.name === 'QueryFailedError') {
+            if (error.name === 'QueryFailedError') {
                 return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Internal server error' });
             }
 			return res.status(StatusCodes.BAD_REQUEST).json({ message: 'User not found' });

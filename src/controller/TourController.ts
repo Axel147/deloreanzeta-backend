@@ -11,11 +11,11 @@ export class TourController {
 		try {
 			const tours = await tourRepository.findAll();
 			return res.status(StatusCodes.OK).send(tours);
-		} catch (e) {
-			if(e.name === 'QueryFailedError') {
+		} catch (error) {
+			if(error.name === 'QueryFailedError') {
 				return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Internal server error' });
 			}
-			return res.status(StatusCodes.BAD_REQUEST).json({ message: 'Not results' });
+			return res.status(StatusCodes.BAD_REQUEST).json(error);
 		}
 	};
 
@@ -25,11 +25,11 @@ export class TourController {
 		try {
 			const tour = await tourRepository.findById(idInt);
 			return res.status(StatusCodes.OK).send(tour);
-		} catch (e) {
-			if (e.name === 'QueryFailedError') {
+		} catch (error) {
+			if (error.name === 'QueryFailedError') {
                 return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Internal server error' });
 			}
-			return res.status(StatusCodes.BAD_REQUEST).json({ message: 'Not result' });
+			return res.status(StatusCodes.BAD_REQUEST).json(error);
 		}
 	};
 
@@ -59,8 +59,8 @@ export class TourController {
 		try {
 			await tourRepository.save(tour);
 			return res.status(StatusCodes.CREATED).send('Tour created');
-		} catch (e) {
-			return res.status(StatusCodes.CONFLICT).json(e);
+		} catch (error) {
+			return res.status(StatusCodes.CONFLICT).json(error);
 		}
 	};
 
@@ -85,11 +85,11 @@ export class TourController {
 			await tourRepository.save(tour);
 			return res.status(StatusCodes.CREATED).json({ message: 'Tour updated' });
 		
-		} catch (errors) {
-			if (errors.name === 'QueryFailedError') {
+		} catch (error) {
+			if (error.name === 'QueryFailedError') {
 				return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Something goes wrong' });
 			}
-			return res.status(StatusCodes.BAD_REQUEST).json({ message: 'Tour not found' });
+			return res.status(StatusCodes.BAD_REQUEST).json(error);
 		}
 	};
 
