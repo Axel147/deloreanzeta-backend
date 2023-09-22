@@ -11,24 +11,26 @@ class AuthController {
 	static login = async (req: Request, res: Response) => {
 		const { email, password } = req.body;
 		if (!email || !password) {
-			return res.status(400).json({
-				message: 'Username & Password are required',
-			});
+			return res.status(400).json({ message: 'Username & Password are required' });
 		}
-
 		try {
 			const user = await userRepository.findByCredentials(
 				email,
 				password
 			);
-
             const token = jwt.sign(
                 { userId: user.id, username: user.email },
                 config.JWT_SECRET,
                 { expiresIn: '1d' }
             );
-
-            res.status(StatusCodes.OK).json({ message: 'OK', token });
+            res.status(StatusCodes.OK).json({ 
+				"email":user.email,
+				"name":user.name,
+				"lastname":user.lastname,
+				"telephone":user.telephone,
+				"role":user.role,
+				"token": token
+			});
 		} catch (e) {
 			return res.status(400).json({ message: e.message });
 		}
