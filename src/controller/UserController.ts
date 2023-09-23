@@ -51,13 +51,15 @@ export class UserController {
 		};
 		const errors = await validate(user, validationOpt);
 		if (errors.length > 0) {
+			console.log("entre al if length error de la linea 54")
 			return res.status(StatusCodes.BAD_REQUEST).json(errors);
 		}
 		try {
 			user.hashPassword();
 			await userRepository.createUser(user);
-			return res.status(StatusCodes.CREATED).send('Tour created');
+			return res.status(StatusCodes.CREATED).send('User created');
 		} catch (error) {
+			console.log("entre al catch error de la linea 61")
 			return res.status(StatusCodes.CONFLICT).json(error);
 		}
 	};
