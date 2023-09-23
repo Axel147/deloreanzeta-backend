@@ -56,7 +56,7 @@ export class UserController {
 		try {
 			user.hashPassword();
 			await userRepository.createUser(user);
-			return res.status(StatusCodes.CREATED).send('User created');
+			return res.status(StatusCodes.CREATED).json({"message": 'User created'});
 		} catch (error) {
 			return res.status(StatusCodes.CONFLICT).json(error);
 		}
