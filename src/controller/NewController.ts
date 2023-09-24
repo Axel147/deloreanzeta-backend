@@ -44,7 +44,7 @@ export class NewController {
         neww.date = date.substring(0, 19).concat('.000-00:00');
 
 		const validationOpt = {
-			validationError: { target: true, value: true },
+			validationError: { target: true },
 		};
 		const errors = await validate(neww, validationOpt);
 		if (errors.length > 0) {
