@@ -48,13 +48,13 @@ export class NewController {
 		};
 		const errors = await validate(neww, validationOpt);
 		if (errors.length > 0) {
-			return res.status(StatusCodes.BAD_REQUEST).json(errors);
+			return res.status(StatusCodes.BAD_REQUEST).json({ "errors": errors });
 		}
 		try {
 			await newRepository.save(neww);
 			return res.status(StatusCodes.CREATED).json({ "message": 'News created' });
 		} catch (error) {
-			return res.status(StatusCodes.CONFLICT).json(error);
+			return res.status(StatusCodes.CONFLICT).json({ "errors": errors });
 		}
 	};
 
