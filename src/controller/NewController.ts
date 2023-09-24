@@ -43,13 +43,13 @@ export class NewController {
         const date = moment().format('YYYY-MM-DDTHH:mm:ss.SSSZ');
         neww.date = date.substring(0, 19).concat('.000-00:00');
 
-		// const validationOpt = {
-		// 	validationError: { target: true, value: true },
-		// };
-		// const errors = await validate(neww, validationOpt);
-		// if (errors.length > 0) {
-		// 	return res.status(StatusCodes.BAD_REQUEST).json({ "errors": errors });
-		// }
+		const validationOpt = {
+			validationError: { target: true, value: true },
+		};
+		const errors = await validate(neww, validationOpt);
+		if (errors.length > 0) {
+			return res.status(StatusCodes.BAD_REQUEST).json({ "errors": errors });
+		}
 		try {
 			await newRepository.save(neww);
 			return res.status(StatusCodes.CREATED).json({ 'message': 'News created' });
