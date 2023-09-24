@@ -48,6 +48,7 @@ export class NewController {
 		};
 		const errors = await validate(neww, validationOpt);
 		if (errors.length > 0) {
+			console.log("cantidad de errores: ",errors.length);
 			return res.status(StatusCodes.BAD_REQUEST).json({ "errors": errors });
 		}
 		try {
