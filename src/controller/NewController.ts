@@ -52,7 +52,7 @@ export class NewController {
 		}
 		try {
 			await newRepository.save(neww);
-			return res.status(StatusCodes.CREATED).json({ 'message': 'News created' });
+			return res.status(StatusCodes.CREATED).json({ message: 'News created' });
 		} catch (error) {
 			return res.status(StatusCodes.CONFLICT).json({ "errors": error });
 		}
