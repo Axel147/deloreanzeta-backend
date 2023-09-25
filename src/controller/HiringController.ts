@@ -31,9 +31,7 @@ class HiringController {
                     to: email, // list of receivers
                     subject: 'Pronto nos comunicaremos', // Subject line
                     text: `Hola, pronto nos estaremos comunicando con vos, en caso de no establecer un contacto en los próximos días te dejaremos el número de contacto para comunicarte con nosotros.\nNumero: 1122334455\nMuchas gracias`, // plain text body
-                    
                 });
-
             } catch (e) {
                 emailStatus = e;
                 return res.status(StatusCodes.BAD_REQUEST).json(emailStatus);

@@ -14,7 +14,7 @@ export class NewController {
 			if (error.name === 'QueryFailedError') {
                 return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Internal server error' });
             }
-			return res.status(StatusCodes.BAD_REQUEST).json(error);
+			return res.status(StatusCodes.BAD_REQUEST).json({ error: error });
 		}
 	};
 
@@ -28,7 +28,7 @@ export class NewController {
 			if (error.name === 'QueryFailedError') {
                 return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Internal server error' });
             }
-			return res.status(StatusCodes.BAD_REQUEST).json(error);
+			return res.status(StatusCodes.BAD_REQUEST).json({ error: error });
 		}
 	};
 
@@ -81,9 +81,9 @@ export class NewController {
 		}
 		try {
 			await newRepository.updateNew(neww);
-			return res.status(StatusCodes.OK).send(neww);
+			return res.status(StatusCodes.OK).json({ message: "new update" });
 		} catch (error) {
-			return res.status(StatusCodes.BAD_REQUEST).json(error);
+			return res.status(StatusCodes.BAD_REQUEST).json({ "error": error });
 		}
 	};
 
@@ -97,13 +97,13 @@ export class NewController {
 			if (error.name === 'QueryFailedError') {
                 return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Internal server error' });
             }
-			return res.status(StatusCodes.BAD_REQUEST).json(error);
+			return res.status(StatusCodes.BAD_REQUEST).json({ "error": error });
 		}
 		try{
 			await newRepository.deleteNew(neww);
 			return res.status(StatusCodes.OK).json({ message: 'New deleted' });
 		}catch(error){
-			return res.status(StatusCodes.BAD_REQUEST).json(error);
+			return res.status(StatusCodes.BAD_REQUEST).json({ "error": error });
 		}
 	};
 }
