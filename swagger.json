@@ -1,25 +1,248 @@
 {
 	"swagger": "2.0",
 	"info": {
-		"version": "1.0.0",
+		"version": "2.0.0",
 		"title": "DeloreanZeta API"
 	},
 	"host": "localhost:3000",
 	"basePath": "/",
 	"tags": [
 		{
-			"name": "Users",
-			"description": "Endpoint for users in the system"
-		},
-		{
 			"name": "Hiring",
 			"description": "Endpoint for comunication with the band"
+		},
+		{
+			"name": "Member",
+			"description": "Endpoint for member in the system"
+		},
+		{
+			"name": "Users",
+			"description": "Endpoint for users in the system"
 		}
 	],
 	"schemes": ["http"],
 	"consumes": ["application/json"],
 	"produces": ["application/json"],
 	"paths": {
+		"/hirings/send-email": {
+			"post":{
+				"tags": ["Hiring"],
+				"summary": "Send email to band",
+				"parameters":[
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Send email to band",
+						"schema": {
+							"type": "object",
+							"properties": {
+							  "name": {
+								"type": "string",
+								"description": "name of interested party"
+							  },
+							  "lastname": {
+								"type": "string",
+								"description": "lastname of interested party"
+							  },
+							  "telephone": {
+								"type": "string",
+								"description": "telephone of interested party"
+							  },
+							  "email": {
+								"type": "string", 
+								"description": "email of interested party"
+							  },
+							  "business": {
+								"type": "string",
+								"description": "business of interested party"
+							  },
+							  "message": {
+								"type": "string",
+								"description": "message of interested party"
+							  }
+							}
+						},
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"201": {
+						"description": "User created"
+					},
+					"400": {
+							"description": "Bad request"
+					},
+					"409": {
+						"description": "Username already exist"
+					}
+				}
+			}
+		},
+		"/member": {
+			"get": {
+				"tags": ["Member"],
+				"summary": "Get all member in system",
+				"responses": {
+					"200": {
+						"description": "OK"
+					},
+					"400": {
+							"description": "Bad request"
+					},
+					"500": {
+						"description": "Internal server error"
+					}
+				}
+			},
+			"post":{
+				"tags": ["Member"],
+				"summary": "Add member in system",
+				"parameters":[
+					{
+						"name": "body",
+						"in": "body",
+						"description": "add member to system",
+						"schema": {
+							"type": "object", 
+							"properties": {
+							  "name": {
+								"type": "string",
+								"description": "member name"
+							  },
+							  "profession": {
+								"type": "string",
+								"description": "member profession"
+							  },
+							  "description": {
+								"type": "string",
+								"description": "member description"
+							  },
+							  "imageUrl": {
+								"type": "string", 
+								"description": "member image in format base64"
+							  }
+							}
+						},
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"201": {
+						"description": "User created"
+					},
+					"400": {
+							"description": "Bad request"
+					},
+					"409": {
+						"description": "Username already exist"
+					}
+				}
+			}
+		},
+		"/member/{id}": {
+			"get": {
+				"tags": ["Member"],
+				"summary": "Get member by id",
+				"parameters": [
+					{
+					"name": "id",
+					"in": "path",
+					"description": "id of the member you want to recover",
+					"required": true,
+					"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					},
+					"400": {
+							"description": "Bad request"
+					},
+					"500": {
+						"description": "Internal server error"
+					}
+				}
+			},
+			"patch": {
+				"tags": ["Member"],
+				"summary": "Edit member by id",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "id of the member you want to edit",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "id of the user you want to edit",
+						"schema": {
+							"type": "object", 
+							"properties": {
+							  "name": {
+								"type": "string",
+								"description": "member name"
+							  },
+							  "profession": {
+								"type": "string", 
+								"description": "member profession"
+							  },
+							  "description": {
+								"type": "string",
+								"description": "member description"
+							  },
+							  "imageUrl": {
+								"type": "string",
+								"description": "member image"
+							  }
+							}
+						},
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					},
+					"400": {
+							"description": "Bad request"
+					},
+					"500": {
+						"description": "Internal server error"
+					}
+				}
+			},
+			"delete":{
+				"tags": ["Member"],
+				"summary": "Delete user by id",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "id of the user you want to edit",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					},
+					"400": {
+							"description": "Bad request"
+					},
+					"500": {
+						"description": "Internal server error"
+					}
+				}
+			}
+		},
 		"/users/{email}": {
 			"get": {
 				"tags": ["Users"],
@@ -35,10 +258,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "OK",
-						"schema": {
-							"$ref": "#/definitions/User"
-						}
+						"description": "OK"
 					},
 					"400": {
 							"description": "Bad request"
@@ -55,10 +275,7 @@
 				"summary": "Get all users in system",
 				"responses": {
 					"200": {
-						"description": "OK",
-						"schema": {
-							"$ref": "#/definitions/User"
-						}
+						"description": "OK"
 					},
 					"400": {
 							"description": "Bad request"
@@ -157,10 +374,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "OK",
-						"schema": {
-							"$ref": "#/definitions/User"
-						}
+						"description": "OK"
 					},
 					"400": {
 							"description": "Bad request"
@@ -184,10 +398,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "OK",
-						"schema": {
-							"$ref": "#/definitions/User"
-						}
+						"description": "OK"
 					},
 					"400": {
 							"description": "Bad request"
@@ -197,97 +408,27 @@
 					}
 				}
 			}
-		},
-		"/hirings/send-email": {
-			"post":{
-				"tags": ["Hiring"],
-				"summary": "Add user in system",
-				"parameters":[
-					{
-						"name": "body",
-						"in": "body",
-						"description": "id of the user you want to edit",
-						"schema": {
-							"type": "object", 
-							"properties": {
-							  "name": {
-								"type": "string",
-								"description": "name of interested party"
-							  },
-							  "lastname": {
-								"type": "string",
-								"description": "lastname of interested party"
-							  },
-							  "telephone": {
-								"type": "string",
-								"description": "telephone of interested party"
-							  },
-							  "email": {
-								"type": "string", 
-								"description": "email of interested party"
-							  },
-							  "business": {
-								"type": "string",
-								"description": "business of interested party"
-							  },
-							  "message": {
-								"type": "string",
-								"description": "message of interested party"
-							  }
-							}
-						},
-						"required": true,
-						"type": "string"
-					}
-				],
-				"responses": {
-					"201": {
-						"description": "User created"
-					},
-					"400": {
-							"description": "Bad request"
-					},
-					"409": {
-						"description": "Username already exist"
-					}
-				}
-			}
 		}
 	},
 	"definitions": {
-		"User": {
-			"required": ["email", "password", "name", "lastname", "role"],
+		"Member": {
+			"required": ["name", "profession", "description", "imageUrl"],
 			"properties": {
 				"id": {
 					"type": "number",
 					"uniqueItems":true
 				},
-				"email": {
+				"name": {
 					"type": "string",
 					"uniqueItems": true
 				},
-				"password": {
+				"profession": {
 					"type": "string"
 				},
-				"name": {
+				"description": {
 					"type": "string"
 				},				
-				"lastname": {
-					"type": "string"
-				},
-				"telephone": {
-					"type": "string"
-				},
-				"role": {
-					"type": "string"
-				},
-				"resetToken": {
-					"type": "string"
-				},
-				"createdAt": {
-					"type": "string"
-				},
-				"updateAt": {
+				"imageUrl": {
 					"type": "string"
 				}
 			}
