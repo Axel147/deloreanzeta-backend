@@ -1,6 +1,7 @@
 import {Router} from "express";
 
 import auth from "./auth";
+import banner from "./banner";
 import category from "./category";
 import hiring from "./hiring";
 import image from "./image";
@@ -13,6 +14,7 @@ import user from "./user";
 const routes = Router();
 
 routes.use("/auth", auth);
+routes.use("/banner", banner)
 routes.use("/category", category);
 routes.use("/hirings", hiring);
 routes.use("/image", image);
