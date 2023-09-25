@@ -9,7 +9,11 @@
 	"tags": [
 		{
 			"name": "Users",
-			"description": "API for users in the system"
+			"description": "Endpoint for users in the system"
+		},
+		{
+			"name": "Hiring",
+			"description": "Endpoint for comunication with the band"
 		}
 	],
 	"schemes": ["http"],
@@ -190,6 +194,61 @@
 					},
 					"500": {
 						"description": "Internal server error"
+					}
+				}
+			}
+		},
+		"/hirings/send-email": {
+			"post":{
+				"tags": ["Hiring"],
+				"summary": "Add user in system",
+				"parameters":[
+					{
+						"name": "body",
+						"in": "body",
+						"description": "id of the user you want to edit",
+						"schema": {
+							"type": "object", 
+							"properties": {
+							  "name": {
+								"type": "string",
+								"description": "name of interested party"
+							  },
+							  "lastname": {
+								"type": "string",
+								"description": "lastname of interested party"
+							  },
+							  "telephone": {
+								"type": "string",
+								"description": "telephone of interested party"
+							  },
+							  "email": {
+								"type": "string", 
+								"description": "email of interested party"
+							  },
+							  "business": {
+								"type": "string",
+								"description": "business of interested party"
+							  },
+							  "message": {
+								"type": "string",
+								"description": "message of interested party"
+							  }
+							}
+						},
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"201": {
+						"description": "User created"
+					},
+					"400": {
+							"description": "Bad request"
+					},
+					"409": {
+						"description": "Username already exist"
 					}
 				}
 			}
