@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { transporter } from '../config/mailer';
 import { StatusCodes } from 'http-status-codes';
+import { MAIL_BAND } from '../config/config';
 
 class HiringController {
 
@@ -19,7 +20,7 @@ class HiringController {
                 // send mail admin
                 await transporter.sendMail({
                     from: "Nuevo interesado en la banda",//sender address
-                    to: "lopez.b.axel@gmail.com", // list of receivers
+                    to: MAIL_BAND, // list of receivers
                     subject: 'Posible contratación', // Subject line
                     text: `Información de contacto \nNombre completo: ${name} ${lastname} \nTeléfono: ${telephone} \nEmail: ${email} \nAsunto: ${business} \nMensaje: ${message}`, // plain text body
                     

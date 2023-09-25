@@ -34,7 +34,7 @@ export class BannerController {
 			await bannerRepository.saveBanner(banner);
 			return res.status(StatusCodes.CREATED).json({ message: 'Banner created' });
 		} catch (error) {
-			return res.status(StatusCodes.BAD_REQUEST).json(error);
+			return res.status(StatusCodes.BAD_REQUEST).json({ 'bad_request': error});
 		}
 	};
 
@@ -53,7 +53,6 @@ export class BannerController {
 		try {
 			await bannerRepository.updateBanner(banner);
 			return res.send(banner);
-			//return res.status(StatusCodes.OK).json({ message: 'OK', neww });
 		} catch (e) {
 			return res.status(400).json({ message: 'Not result' });
 		}

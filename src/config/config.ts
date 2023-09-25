@@ -17,6 +17,7 @@ export const MAIL_HOST = process.env.MAIL_HOST;
 export const MAIL_PORT = process.env.MAIL_PORT;
 export const MAIL_CONTACT = process.env.MAIL_CONTACT;
 export const MAIL_CONTACT_PASSWORD = process.env.MAIL_CONTACT_PASSWORD;
+export const MAIL_BAND = process.env.MAIL_BAND;
 export const MAIL_CONTACT_CLIENT_ID = process.env.MAIL_CONTACT_CLIENT_ID;
 export const MAIL_CONTACT_CLIENT_SECRET = process.env.MAIL_CONTACT_CLIENT_SECRET;
 export const OAUTH_REFRESH_TOKEN = process.env.OAUTH_REFRESH_TOKEN;

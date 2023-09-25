@@ -84,7 +84,7 @@ export class CategoryController {
 		}
 	};
 
-	/*static deleteCategory = async (req: Request, res: Response) => {
+	static deleteCategory = async (req: Request, res: Response) => {
 		const { id } = req.params;
 		const idInt = parseInt(id as string);
 
@@ -106,6 +106,6 @@ export class CategoryController {
 				.status(StatusCodes.INTERNAL_SERVER_ERROR)
 				.json({ message: 'Something goes wrong' });
 		}
-	};*/
+	};
 
 }
