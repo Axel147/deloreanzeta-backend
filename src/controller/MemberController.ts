@@ -7,9 +7,9 @@ export class MemberController {
 	static getAll = async (req: Request, res: Response) => {
 		try{
             const members = await memberRepository.findAll();
-		    return res.send(members);
+		    return res.status(StatusCodes.OK).json(members);
         }catch(error){
-            return res.status(409).json(error);
+            return res.status(StatusCodes.ACCEPTED).json({ message: error });
         }
 	};
 
@@ -18,9 +18,9 @@ export class MemberController {
 		const idInt = parseInt(id as string);
         try{
 		    const member = await memberRepository.findById(idInt);
-		    return res.send(member);
+		    return res.status(StatusCodes.OK).json(member);
         }catch(error){
-            return res.status(409).json(error);
+            return res.status(StatusCodes.CONFLICT).json({ message: error });
         }
 	};
 
@@ -32,12 +32,12 @@ export class MemberController {
 		member.profession = profession;
 		member.description = description
 		member.imageUrl = imageUrl;
-        
+
 		try {
 			await memberRepository.save(member);
-			return res.status(StatusCodes.CREATED).send('Member created');
+			return res.status(StatusCodes.CREATED).json({ message: 'Member created' });
 		} catch (error) {
-			return res.status(400).json({ message: 'Not result' });
+			return res.status(StatusCodes.BAD_REQUEST).json({ message: error });
 		}
 	};
 
@@ -55,14 +55,14 @@ export class MemberController {
     		member.imageUrl = imageUrl;    
 
         }catch(error){
-            return res.status(409).json(error);
+            return res.status(StatusCodes.CONFLICT).json({ message: error });
         }
 
 		try {
 			await memberRepository.updateNew(member);
-			return res.send(member);
-		} catch (e) {
-			return res.status(400).json({ message: 'Not result' });
+			return res.status(StatusCodes.ACCEPTED).json({ message: "member update" });
+		} catch (error) {
+			return res.status(StatusCodes.BAD_REQUEST).json({ message: error });
 		}
 	};
 
@@ -73,9 +73,9 @@ export class MemberController {
 		const member = await memberRepository.findById(idInt);
 		try{
             await memberRepository.deleteNew(member);
-		    return res.status(StatusCodes.OK).json({ message: 'OK' });
+		    return res.status(StatusCodes.OK).json({ message: 'Member delete' });
         }catch(error){
-            return res.status(409).json(error);    
+            return res.status(StatusCodes.BAD_REQUEST).json({ message: error });    
         }
 	};
 }

@@ -9,7 +9,7 @@ export class NewController {
 	static getAll = async (req: Request, res: Response) => {
 		try{
 			const news = await newRepository.findAll();
-			return res.status(StatusCodes.OK).send(news);
+			return res.status(StatusCodes.OK).json(news);
 		}catch(error){
 			if (error.name === 'QueryFailedError') {
                 return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Internal server error' });
@@ -23,7 +23,7 @@ export class NewController {
 		const idInt = parseInt(id as string);
 		try{
 			const neww = await newRepository.findById(idInt);
-			return res.status(StatusCodes.OK).send(neww);
+			return res.status(StatusCodes.OK).json(neww);
 		}catch(error){
 			if (error.name === 'QueryFailedError') {
                 return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Internal server error' });

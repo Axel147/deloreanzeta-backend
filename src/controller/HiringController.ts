@@ -8,7 +8,7 @@ class HiringController {
     static sendEmails = async (req: Request, res: Response) => {
         const { name, lastname, telephone, email, business, message } = req.body;
         if (!name || !lastname || !telephone || !email || !business || !message) {
-            return res.status(400).json({ message: 'Complete all fields' });
+            return res.status(StatusCodes.BAD_REQUEST).json({ message: 'Complete all fields' });
         }
         
         try{
@@ -36,10 +36,10 @@ class HiringController {
 
             } catch (e) {
                 emailStatus = e;
-                return res.status(400).json(emailStatus);
+                return res.status(StatusCodes.BAD_REQUEST).json(emailStatus);
             }
         
-            return res.status(StatusCodes.OK).json({message: "Todo OK"});
+            return res.status(StatusCodes.OK).json({ message: "Correo enviado correctamente" });
             
         }catch(e){
             throw new Error(e);

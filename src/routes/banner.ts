@@ -8,7 +8,7 @@ const router = Router();
 
 router.get('/', BannerController.getAll);
 router.get('/:id', BannerController.getById);
-router.post('/',validateBanner, [/*checkJwt, checkRole(['admin'])*/], BannerController.createBanner);
+router.post('/'/*,validateBanner*/, [/*checkJwt, checkRole(['admin'])*/], BannerController.createBanner);
 router.put('/:id',validateBanner, [/*checkJwt, checkRole(['admin'])*/], BannerController.updateBanner);
 router.patch('/:id',validateBanner, [/*checkJwt, checkRole(['admin'])*/], BannerController.updateBanner);
 router.delete('/:id', [/*checkJwt, checkRole(['admin'])*/], BannerController.deleteBanner);

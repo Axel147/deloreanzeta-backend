@@ -7,9 +7,9 @@ export class BannerController {
 	static getAll = async (req: Request, res: Response) => {
 		try{
 			const banners = await bannerRepository.findAll();
-			return res.send(banners);
+			return res.json({ message: banners });
 		}catch(error){
-			return res.status(409).json(error);
+			return res.status(StatusCodes.CONFLICT).json({ "error": error });
 		}
 	};
 
@@ -18,9 +18,9 @@ export class BannerController {
 		const idInt = parseInt(id as string);
 		try{
 			const banner = await bannerRepository.findById(idInt);
-			return res.send(banner);
+			return res.json({ message: banner });
 		}catch(error){
-			return res.status(409).json(error);
+			return res.status(StatusCodes.BAD_REQUEST).json({ "error": error });
 		}
 	};
 
