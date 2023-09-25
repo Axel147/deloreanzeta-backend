@@ -72,7 +72,15 @@ export class UserController {
 			user.name = name;
 			user.lastname = lastname;
 			user.telephone = telephone;
-			userRepository.updateUser(user);
+			
+			const validationOpt = {
+				validationError: { target: false, value: false },
+			};
+			const errors = await validate(user, validationOpt);
+			if (errors.length > 0) {
+				return res.status(StatusCodes.BAD_REQUEST).json(errors);
+			}
+			await userRepository.updateUser(user);
 			return res.status(StatusCodes.CREATED).json({ message: 'User updated' });
 		} catch (error) {
 			// check if is a typeorm error and thor error 500

@@ -11,7 +11,7 @@ router.get("/:id", TourController.getById);
 
 router.post("/", validateTour, [/*checkJwt, checkRole(['admin'])*/], TourController.newTour);
 
-router.patch("/:id", validateTour, [/*checkJwt, checkRole(['admin'])*/], TourController.editTour);
+router.put("/:id", validateTour, [/*checkJwt, checkRole(['admin'])*/], TourController.editTour);
 
 router.delete("/:id", [/*checkJwt, checkRole(['admin'])*/], TourController.deleteTour);
 

@@ -11,7 +11,7 @@ const UserRepository = conn.getRepository(User).extend({
 			return user;
 	},
 	async findById(id: number): Promise<User> {
-		return await this.findOneBy(id);
+		return await this.findOneBy({id});
 	},
 	async findAll(): Promise<User[]> {
 		const users = await this.createQueryBuilder('user').getMany();
