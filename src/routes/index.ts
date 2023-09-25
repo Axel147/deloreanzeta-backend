@@ -8,7 +8,7 @@ import image from "./image";
 import member from "./member";
 import neww from "./new";
 import product from "./product";
-import tour from "./tour"
+import tour from "./tour";
 import user from "./user";
 
 const routes = Router();

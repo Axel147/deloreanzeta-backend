@@ -16,6 +16,35 @@
 	"consumes": ["application/json"],
 	"produces": ["application/json"],
 	"paths": {
+		"/users/{email}": {
+			"get": {
+				"tags": ["Users"],
+				"summary": "Get user by email",
+				"parameters": [
+					{
+					"name": "email",
+					"in": "path",
+					"description": "email of the user you want to recover",
+					"required": true,
+					"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/User"
+						}
+					},
+					"400": {
+							"description": "Bad request"
+					},
+					"500": {
+						"description": "Internal server error"
+					}
+				}
+			}
+		},
 		"/users": {
 			"get": {
 				"tags": ["Users"],
@@ -38,6 +67,40 @@
 			"post":{
 				"tags": ["Users"],
 				"summary": "Add user in system",
+				"parameters":[
+					{
+						"name": "body",
+						"in": "body",
+						"description": "id of the user you want to edit",
+						"schema": {
+							"type": "object", 
+							"properties": {
+							  "email": {
+								"type": "string",
+								"description": "user email"
+							  },
+							  "password": {
+								"type": "string",
+								"description": "user password"
+							  },
+							  "name": {
+								"type": "string",
+								"description": "user name"
+							  },
+							  "lastname": {
+								"type": "string", 
+								"description": "user lastname"
+							  },
+							  "telephone": {
+								"type": "string",
+								"description": "user telephone"
+							  }
+							}
+						},
+						"required": true,
+						"type": "string"
+					}
+				],
 				"responses": {
 					"201": {
 						"description": "User created"
@@ -47,6 +110,86 @@
 					},
 					"409": {
 						"description": "Username already exist"
+					}
+				}
+			}
+		},
+		"/users/{id}": {
+			"patch": {
+				"tags": ["Users"],
+				"summary": "Edit user by id",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "id of the user you want to edit",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "id of the user you want to edit",
+						"schema": {
+							"type": "object", 
+							"properties": {
+							  "name": {
+								"type": "string",
+								"description": "Nombre del elemento"
+							  },
+							  "lastname": {
+								"type": "string", 
+								"description": "Edad del elemento"
+							  },
+							  "telephone": {
+								"type": "string",
+								"description": "Edad del elemento"
+							  }
+							}
+						},
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/User"
+						}
+					},
+					"400": {
+							"description": "Bad request"
+					},
+					"500": {
+						"description": "Internal server error"
+					}
+				}
+			},
+			"delete":{
+				"tags": ["Users"],
+				"summary": "Delete user by id",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "id of the user you want to edit",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/User"
+						}
+					},
+					"400": {
+							"description": "Bad request"
+					},
+					"500": {
+						"description": "Internal server error"
 					}
 				}
 			}

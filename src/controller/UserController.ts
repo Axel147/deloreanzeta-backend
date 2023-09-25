@@ -78,7 +78,7 @@ export class UserController {
 			};
 			const errors = await validate(user, validationOpt);
 			if (errors.length > 0) {
-				return res.status(StatusCodes.BAD_REQUEST).json(errors);
+				return res.status(StatusCodes.BAD_REQUEST).json({ message: errors });
 			}
 			await userRepository.updateUser(user);
 			return res.status(StatusCodes.CREATED).json({ message: 'User updated' });
