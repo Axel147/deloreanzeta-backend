@@ -20,6 +20,10 @@
 			"description": "Endpoint for new in the system"
 		},
 		{
+			"name": "Tour",
+			"description": "Endpoint for tour in the system"
+		},
+		{
 			"name": "Users",
 			"description": "Endpoint for users in the system"
 		}
@@ -350,14 +354,17 @@
 							"properties": {
 							  "title": {
 								"type": "string",
+								"required": false,
 								"description": "new title"
 							  },
 							  "content": {
 								"type": "string",
+								"required": false,
 								"description": "new content"
 							  },
 							  "imageUrl": {
 								"type": "string",
+								"required": false,
 								"description": "new image"
 							  }
 							}
