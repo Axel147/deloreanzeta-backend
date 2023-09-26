@@ -233,7 +233,7 @@
 					{
 						"name": "id",
 						"in": "path",
-						"description": "id of the member you want to edit",
+						"description": "id of the member you want to delete",
 						"required": true,
 						"type": "string"
 					}
@@ -392,7 +392,163 @@
 					{
 						"name": "id",
 						"in": "path",
-						"description": "id of the new you want to edit",
+						"description": "id of the new you want to delete",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					},
+					"400": {
+							"description": "Bad request"
+					},
+					"500": {
+						"description": "Internal server error"
+					}
+				}
+			}
+		},
+		"/tour": {
+			"get": {
+				"tags": ["Tour"],
+				"summary": "Get all tour in system",
+				"responses": {
+					"200": {
+						"description": "OK"
+					},
+					"400": {
+							"description": "Bad request"
+					},
+					"500": {
+						"description": "Internal server error"
+					}
+				}
+			},
+			"post":{
+				"tags": ["Tour"],
+				"summary": "Add tour in system",
+				"parameters":[
+					{
+						"name": "body",
+						"in": "body",
+						"description": "add tour to system",
+						"schema": {
+							"type": "object", 
+							"properties": {
+							  "place": {
+								"type": "string",
+								"description": "tour place"
+							  },
+							  "date": {
+								"type": "string",
+								"description": "tour date format 2023-09-25T00:00:00"
+							  },
+							  "city": {
+								"type": "string",
+								"description": "tour city"
+							  }
+							}
+						},
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"201": {
+						"description": "User created"
+					},
+					"400": {
+							"description": "Bad request"
+					},
+					"409": {
+						"description": "Username already exist"
+					}
+				}
+			}
+		},
+		"/tour/{id}": {
+			"get": {
+				"tags": ["Tour"],
+				"summary": "Get tour by id",
+				"parameters": [
+					{
+					"name": "id",
+					"in": "path",
+					"description": "id of the tour you want to recover",
+					"required": true,
+					"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					},
+					"400": {
+							"description": "Bad request"
+					},
+					"500": {
+						"description": "Internal server error"
+					}
+				}
+			},
+			"patch": {
+				"tags": ["Tour"],
+				"summary": "Edit tour by id",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "id of the tour you want to edit",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "id of the tour you want to edit",
+						"schema": {
+							"type": "object", 
+							"properties": {
+							  "place": {
+								"type": "string",
+								"description": "tour place"
+							  },
+							  "date": {
+								"type": "string",
+								"description": "tour date format 2023-09-25T00:00:00"
+							  },
+							  "city": {
+								"type": "string",
+								"description": "tour city"
+							  }
+							}
+						},
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					},
+					"400": {
+							"description": "Bad request"
+					},
+					"500": {
+						"description": "Internal server error"
+					}
+				}
+			},
+			"delete":{
+				"tags": ["Tour"],
+				"summary": "Delete tour by id",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "id of the tour you want to delete",
 						"required": true,
 						"type": "string"
 					}
@@ -558,7 +714,7 @@
 					{
 						"name": "id",
 						"in": "path",
-						"description": "id of the user you want to edit",
+						"description": "id of the user you want to delete",
 						"required": true,
 						"type": "string"
 					}
