@@ -16,6 +16,10 @@
 			"description": "Endpoint for member in the system"
 		},
 		{
+			"name": "New",
+			"description": "Endpoint for new in the system"
+		},
+		{
 			"name": "Users",
 			"description": "Endpoint for users in the system"
 		}
@@ -180,7 +184,7 @@
 					{
 						"name": "body",
 						"in": "body",
-						"description": "id of the user you want to edit",
+						"description": "id of the member you want to edit",
 						"schema": {
 							"type": "object", 
 							"properties": {
@@ -220,12 +224,168 @@
 			},
 			"delete":{
 				"tags": ["Member"],
-				"summary": "Delete user by id",
+				"summary": "Delete member by id",
 				"parameters": [
 					{
 						"name": "id",
 						"in": "path",
-						"description": "id of the user you want to edit",
+						"description": "id of the member you want to edit",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					},
+					"400": {
+							"description": "Bad request"
+					},
+					"500": {
+						"description": "Internal server error"
+					}
+				}
+			}
+		},
+		"/new": {
+			"get": {
+				"tags": ["New"],
+				"summary": "Get all new in system",
+				"responses": {
+					"200": {
+						"description": "OK"
+					},
+					"400": {
+							"description": "Bad request"
+					},
+					"500": {
+						"description": "Internal server error"
+					}
+				}
+			},
+			"post":{
+				"tags": ["New"],
+				"summary": "Add new in system",
+				"parameters":[
+					{
+						"name": "body",
+						"in": "body",
+						"description": "add new to system",
+						"schema": {
+							"type": "object", 
+							"properties": {
+							  "title": {
+								"type": "string",
+								"description": "new title"
+							  },
+							  "content": {
+								"type": "string",
+								"description": "new content"
+							  },
+							  "imageUrl": {
+								"type": "string",
+								"description": "new image"
+							  }
+							}
+						},
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"201": {
+						"description": "User created"
+					},
+					"400": {
+							"description": "Bad request"
+					},
+					"409": {
+						"description": "Username already exist"
+					}
+				}
+			}
+		},
+		"/new/{id}": {
+			"get": {
+				"tags": ["New"],
+				"summary": "Get new by id",
+				"parameters": [
+					{
+					"name": "id",
+					"in": "path",
+					"description": "id of the new you want to recover",
+					"required": true,
+					"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					},
+					"400": {
+							"description": "Bad request"
+					},
+					"500": {
+						"description": "Internal server error"
+					}
+				}
+			},
+			"patch": {
+				"tags": ["New"],
+				"summary": "Edit new by id",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "id of the new you want to edit",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "id of the new you want to edit",
+						"schema": {
+							"type": "object", 
+							"properties": {
+							  "title": {
+								"type": "string",
+								"description": "new title"
+							  },
+							  "content": {
+								"type": "string",
+								"description": "new content"
+							  },
+							  "imageUrl": {
+								"type": "string",
+								"description": "new image"
+							  }
+							}
+						},
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					},
+					"400": {
+							"description": "Bad request"
+					},
+					"500": {
+						"description": "Internal server error"
+					}
+				}
+			},
+			"delete":{
+				"tags": ["New"],
+				"summary": "Delete new by id",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "id of the new you want to edit",
 						"required": true,
 						"type": "string"
 					}
@@ -406,30 +566,6 @@
 					"500": {
 						"description": "Internal server error"
 					}
-				}
-			}
-		}
-	},
-	"definitions": {
-		"Member": {
-			"required": ["name", "profession", "description", "imageUrl"],
-			"properties": {
-				"id": {
-					"type": "number",
-					"uniqueItems":true
-				},
-				"name": {
-					"type": "string",
-					"uniqueItems": true
-				},
-				"profession": {
-					"type": "string"
-				},
-				"description": {
-					"type": "string"
-				},				
-				"imageUrl": {
-					"type": "string"
 				}
 			}
 		}

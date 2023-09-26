@@ -24,25 +24,6 @@ export const validateNew = [
 				);
 			return true;
 		}),
-	body('description')
-		.exists()
-		.withMessage('El campo descripcion no fue ingresado')
-		.not()
-		.isEmpty()
-		.withMessage('El campo descripcion no puede estar vacio')
-		.isString()
-		.withMessage('El campo descripcion debe ser una cadena de caracteres')
-		.isLength({ max: 150 })
-		.withMessage(
-			'El campo descripcion debe componerse de a lo sumo 150 caracteres'
-		)
-		.custom((value, { req }) => {
-			if (value.trim() == 0)
-				throw new Error(
-					'El campo descripcion no debe componerse unicamente de espacios'
-				);
-			return true;
-		}),
 	body('content')
 		.exists()
 		.withMessage('El campo contenido no fue ingresado')
