@@ -95,10 +95,7 @@
 					"200": {
 						"description": "OK",
 						"schema": {
-							"type": "array",
-							"items": {
 							  "$ref": "#/components/schemas/Member"
-							}
 						  }
 					},
 					"400": {
