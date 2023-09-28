@@ -10,7 +10,12 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('../swagger.json');
 
 const app = express();
-app.use(cors());
+
+const corsOptions = {
+	origin: 'https://ecommerce-deloreanzeta.vercel.app',
+  };
+
+app.use(cors(corsOptions));
 app.use(helmet());
 // app.use(express.json({ limit: '500mb'}));
 app.use(express.urlencoded({ extended: true }));
