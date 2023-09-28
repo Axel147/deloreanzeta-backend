@@ -4,7 +4,7 @@
 		"version": "2.0.0",
 		"title": "DeloreanZeta API"
 	},
-	"host": "https://deloreanzeta-backend-production.up.railway.app",
+	"host": "deloreanzeta-backend-production.up.railway.app",
 	"basePath": "/",
 	"tags": [
 		{
