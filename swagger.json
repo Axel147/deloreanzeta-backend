@@ -93,10 +93,10 @@
 				"summary": "Get all member in system",
 				"responses": {
 					"200": {
-						"description": "OK",
 						"schema": {
 							  "$ref": "#/definitions/Member"
-						  }
+						  },
+						  "description": "OK"
 					},
 					"400": {
 							"description": "Bad request"
