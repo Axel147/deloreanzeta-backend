@@ -93,7 +93,13 @@
 				"summary": "Get all member in system",
 				"responses": {
 					"200": {
-						"description": "OK"
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+							  "$ref": "#/components/schemas/Member"
+							}
+						  }
 					},
 					"400": {
 							"description": "Bad request"
