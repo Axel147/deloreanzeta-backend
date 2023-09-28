@@ -4,7 +4,7 @@
 		"version": "2.0.0",
 		"title": "DeloreanZeta API"
 	},
-	"host": "localhost:3000",
+	"host": "https://ecommerce-deloreanzeta.vercel.app/",
 	"basePath": "/",
 	"tags": [
 		{
@@ -729,6 +729,55 @@
 					"500": {
 						"description": "Internal server error"
 					}
+				}
+			}
+		}
+	},
+	"definitions": {
+		"User": {
+			"required": ["email", "password", "name", "lastname", "telephone"],
+			"properties": {
+				"id": {
+					"type": "number",
+					"uniqueItems":true
+				},
+				"email": {
+					"type": "string",
+					"uniqueItems": true
+				},
+				"password": {
+					"type": "string"
+				},
+				"name": {
+					"type": "string"
+				},				
+				"lastname": {
+					"type": "string"
+				},				
+				"telephone": {
+					"type": "string"
+				}
+			}
+		},
+		"Member": {
+			"required": ["name", "profession", "description", "imageUrl"],
+			"properties": {
+				"id": {
+					"type": "number",
+					"uniqueItems":true
+				},
+				"name": {
+					"type": "string",
+					"uniqueItems": true
+				},
+				"profession": {
+					"type": "string"
+				},
+				"description": {
+					"type": "string"
+				},				
+				"imageUrl": {
+					"type": "string"
 				}
 			}
 		}
