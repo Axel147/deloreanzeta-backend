@@ -79,7 +79,7 @@
 						"description": "User created"
 					},
 					"400": {
-							"description": "Bad request"
+						"description": "Bad request"
 					},
 					"409": {
 						"description": "Username already exist"
@@ -93,13 +93,10 @@
 				"summary": "Get all member in system",
 				"responses": {
 					"200": {
-						"schema": {
-							  "$ref": "#/definitions/Member"
-						  },
-						  "description": "OK"
+						"description": "OK"
 					},
 					"400": {
-							"description": "Bad request"
+						"description": "Bad request"
 					},
 					"500": {
 						"description": "Internal server error"
@@ -144,7 +141,7 @@
 						"description": "User created"
 					},
 					"400": {
-							"description": "Bad request"
+						"description": "Bad request"
 					},
 					"409": {
 						"description": "Username already exist"
@@ -170,7 +167,7 @@
 						"description": "OK"
 					},
 					"400": {
-							"description": "Bad request"
+						"description": "Bad request"
 					},
 					"500": {
 						"description": "Internal server error"
@@ -222,7 +219,7 @@
 						"description": "OK"
 					},
 					"400": {
-							"description": "Bad request"
+						"description": "Bad request"
 					},
 					"500": {
 						"description": "Internal server error"
@@ -246,7 +243,7 @@
 						"description": "OK"
 					},
 					"400": {
-							"description": "Bad request"
+						"description": "Bad request"
 					},
 					"500": {
 						"description": "Internal server error"
@@ -263,7 +260,7 @@
 						"description": "OK"
 					},
 					"400": {
-							"description": "Bad request"
+						"description": "Bad request"
 					},
 					"500": {
 						"description": "Internal server error"
@@ -304,7 +301,7 @@
 						"description": "User created"
 					},
 					"400": {
-							"description": "Bad request"
+						"description": "Bad request"
 					},
 					"409": {
 						"description": "Username already exist"
@@ -330,7 +327,7 @@
 						"description": "OK"
 					},
 					"400": {
-							"description": "Bad request"
+						"description": "Bad request"
 					},
 					"500": {
 						"description": "Internal server error"
@@ -381,7 +378,7 @@
 						"description": "OK"
 					},
 					"400": {
-							"description": "Bad request"
+						"description": "Bad request"
 					},
 					"500": {
 						"description": "Internal server error"
@@ -405,7 +402,7 @@
 						"description": "OK"
 					},
 					"400": {
-							"description": "Bad request"
+						"description": "Bad request"
 					},
 					"500": {
 						"description": "Internal server error"
@@ -422,7 +419,7 @@
 						"description": "OK"
 					},
 					"400": {
-							"description": "Bad request"
+						"description": "Bad request"
 					},
 					"500": {
 						"description": "Internal server error"
@@ -463,7 +460,7 @@
 						"description": "User created"
 					},
 					"400": {
-							"description": "Bad request"
+						"description": "Bad request"
 					},
 					"409": {
 						"description": "Username already exist"
@@ -489,7 +486,7 @@
 						"description": "OK"
 					},
 					"400": {
-							"description": "Bad request"
+						"description": "Bad request"
 					},
 					"500": {
 						"description": "Internal server error"
@@ -537,7 +534,7 @@
 						"description": "OK"
 					},
 					"400": {
-							"description": "Bad request"
+						"description": "Bad request"
 					},
 					"500": {
 						"description": "Internal server error"
@@ -561,7 +558,7 @@
 						"description": "OK"
 					},
 					"400": {
-							"description": "Bad request"
+						"description": "Bad request"
 					},
 					"500": {
 						"description": "Internal server error"
@@ -587,7 +584,7 @@
 						"description": "OK"
 					},
 					"400": {
-							"description": "Bad request"
+						"description": "Bad request"
 					},
 					"500": {
 						"description": "Internal server error"
@@ -604,7 +601,7 @@
 						"description": "OK"
 					},
 					"400": {
-							"description": "Bad request"
+						"description": "Bad request"
 					},
 					"500": {
 						"description": "Internal server error"
@@ -653,7 +650,7 @@
 						"description": "User created"
 					},
 					"400": {
-							"description": "Bad request"
+						"description": "Bad request"
 					},
 					"409": {
 						"description": "Username already exist"
@@ -703,7 +700,7 @@
 						"description": "OK"
 					},
 					"400": {
-							"description": "Bad request"
+						"description": "Bad request"
 					},
 					"500": {
 						"description": "Internal server error"
@@ -727,60 +724,11 @@
 						"description": "OK"
 					},
 					"400": {
-							"description": "Bad request"
+						"description": "Bad request"
 					},
 					"500": {
 						"description": "Internal server error"
 					}
-				}
-			}
-		}
-	},
-	"definitions": {
-		"User": {
-			"required": ["email", "password", "name", "lastname", "telephone"],
-			"properties": {
-				"id": {
-					"type": "number",
-					"uniqueItems":true
-				},
-				"email": {
-					"type": "string",
-					"uniqueItems": true
-				},
-				"password": {
-					"type": "string"
-				},
-				"name": {
-					"type": "string"
-				},				
-				"lastname": {
-					"type": "string"
-				},				
-				"telephone": {
-					"type": "string"
-				}
-			}
-		},
-		"Member": {
-			"required": ["name", "profession", "description", "imageUrl"],
-			"properties": {
-				"id": {
-					"type": "number",
-					"uniqueItems":true
-				},
-				"name": {
-					"type": "string",
-					"uniqueItems": true
-				},
-				"profession": {
-					"type": "string"
-				},
-				"description": {
-					"type": "string"
-				},				
-				"imageUrl": {
-					"type": "string"
 				}
 			}
 		}
