@@ -28,7 +28,7 @@ app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 initializeDb()
 	.then(() => {
 		app.listen(PORT, async () => {
-			console.log(`Server running on port http://localhost:${PORT}/`);
+			console.log(`Server running on port ${PORT}/`);
 		});
 	})
 	.catch((error) => console.log(error));
