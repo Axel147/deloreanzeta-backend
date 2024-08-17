@@ -1,7 +1,7 @@
 import * as express from 'express';
 import bodyParser = require('body-parser');
 import * as cors from 'cors';
-import helmet from 'helmet';
+//import helmet from 'helmet';
 import routes from './routes';
 import { PORT } from './config/config';
 import { initialize as initializeDb } from './dbConnection';
@@ -12,7 +12,7 @@ const swaggerDocument = require('../swagger.json');
 const app = express();
 
 app.use(cors());
-app.use(helmet());
+//app.use(helmet());
 // app.use(express.json({ limit: '500mb'})); 
 app.use(express.urlencoded({ extended: true }));
 
@@ -28,7 +28,7 @@ app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 initializeDb()
 	.then(() => {
 		app.listen(PORT, async () => {
-			console.log(`Server running on port ${PORT}/`);
+			console.log(`Server running on port ${PORT}`);
 		});
 	})
 	.catch((error) => console.log(error));
